@@ -1,0 +1,320 @@
+#list-vouchers {
+  position: relative;
+  max-height: 411px;
+  padding-bottom: 20px;
+  background-color: #fff9f8;
+  text-align: left;
+  overflow-y: auto;
+}
+
+#list-vouchers::before {
+  content: "";
+  position: sticky;
+  top: 0;
+  display: block;
+  height: 1px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+  z-index: 3;
+}
+
+#list-vouchers > .voucher {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 300px;
+  margin: 20px auto;
+  height: 110px;
+  padding: 15px;
+  background-color: white;
+  border-radius: 15px;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  z-index: 2;
+}
+
+#list-vouchers > .voucher .title {
+  position: relative;
+  display: flex;
+  top: 0;
+  width: 150px;
+  height: 54px;
+  max-height: 54px;
+  margin-right: 10px;
+  font-size: 13px;
+  font-weight: bold;
+  transition: top 0.8s;
+}
+
+#list-vouchers > .voucher .title .full-title,
+#list-vouchers > .voucher .title:hover span:not(.full-title) {
+  display: none;
+}
+
+#list-vouchers > .voucher .title:hover .full-title {
+  display: flex;
+}
+
+#list-vouchers > .voucher .button-code {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 110px;
+  height: 35px;
+  line-height: 35px;
+  color: #ffaca8;
+  border: 1px solid #ffaca8;
+  border-radius: 50px;
+  background-color: #ffaca8;
+  box-sizing: border-box;
+  cursor: pointer;
+  overflow: hidden;
+  user-select: none;
+  z-index: 1;
+}
+
+#list-vouchers > .voucher.r-1 .button-code {
+  color: #8f7ae2;
+  border-color: #8f7ae2;
+  background-color: #8f7ae2;
+}
+
+#list-vouchers > .voucher.r-2 .button-code {
+  color: #ffbd51;
+  border-color: #ffbd51;
+  background-color: #ffbd51;
+}
+
+#list-vouchers > .voucher.r-3 .button-code {
+  color: #ffaca8;
+  border-color: #ffaca8;
+  background-color: #ffaca8;
+}
+
+#list-vouchers > .voucher.r-4 .button-code {
+  color: #79e5e1;
+  border-color: #79e5e1;
+  background-color: #79e5e1;
+}
+
+#list-vouchers > .voucher .button-code .code,
+#list-vouchers > .voucher .button-code .zone-copy {
+  position: absolute;
+  top: 0;
+  line-height: inherit;
+  text-align: center;
+  font-size: 12px;
+  transition: all ease 0.4s;
+}
+
+#list-vouchers > .voucher .button-code .code {
+  left: 0;
+  width: 60px;
+  height: 33px;
+  line-height: 33px;
+  text-transform: uppercase;
+  background-color: white;
+  border: 1px solid white;
+  border-top-left-radius: 50px;
+  border-bottom-left-radius: 50px;
+}
+
+#list-vouchers > .voucher .button-code .zone-copy {
+  right: 0;
+  width: 50px;
+  color: white;
+}
+
+#list-vouchers > .voucher .button-code .zone-copy .copy {
+  white-space: nowrap;
+}
+
+#list-vouchers > .voucher .button-code .zone-copy .copied {
+  position: relative;
+  top: 0;
+  transition: all ease 0.8s;
+  opacity: 1;
+}
+
+#list-vouchers > .voucher .button-code.animate .zone-copy .copied {
+  top: -30px;
+  opacity: 0;
+}
+
+#list-vouchers > .voucher .button-code.copied .zone-copy .copy,
+#list-vouchers > .voucher .button-code .zone-copy .more,
+#list-vouchers > .voucher .button-code .zone-copy .copied,
+#list-vouchers > .voucher:not(.ask-vote) .vote {
+  display: none;
+}
+
+#list-vouchers > .voucher .button-code.hidden .code,
+#list-vouchers > .voucher .button-code.copied .code,
+#list-vouchers > .voucher .button-code:hover .code {
+  left: -65px;
+  opacity: 0;
+}
+
+#list-vouchers > .voucher .button-code.hidden .zone-copy,
+#list-vouchers > .voucher .button-code.copied .zone-copy,
+#list-vouchers > .voucher .button-code:hover .zone-copy {
+  width: 100%;
+}
+
+#list-vouchers > .voucher .button-code.copied .zone-copy .copied,
+#list-vouchers > .voucher .button-code.hidden .zone-copy .more,
+#list-vouchers > .voucher .button-code:hover .zone-copy .more {
+  display: inline-block;
+}
+
+#list-vouchers > .voucher.no-conditions .conditions {
+  display: none;
+}
+
+#list-vouchers > .voucher.no-conditions,
+#list-vouchers > .voucher.no-conditions .title {
+  align-items: center;
+}
+
+#list-vouchers > .voucher .conditions {
+  position: relative;
+  top: 0;
+  height: 100px;
+  font-size: 12px;
+  transition: top 0.8s;
+  z-index: 0;
+}
+
+#list-vouchers > .voucher .conditions .see-condition {
+  display: inline-block;
+  margin: 6px 0;
+  text-decoration: underline;
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+#list-vouchers > .voucher .conditions .see-condition::before {
+  content: "\203A";
+  display: inline-block;
+  margin-right: 3px;
+  font-size: 14px;
+  transition: 0.8s;
+}
+
+#list-vouchers > .voucher .conditions:hover .see-condition::before {
+  transform: rotate(90deg);
+}
+
+#list-vouchers > .voucher .conditions .condition-text {
+  margin-top: 6px;
+}
+
+#list-vouchers > .voucher.ask-vote .title,
+#list-vouchers > .voucher.ask-vote .conditions {
+  display: none;
+}
+
+#list-vouchers > .voucher.ask-vote .button-code {
+  order: 1;
+}
+
+#list-vouchers > .voucher.ask-vote .vote {
+  order: 0;
+  width: 160px;
+}
+
+#list-vouchers > .voucher.ask-vote .vote p {
+  margin-top: 9px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+#list-vouchers > .voucher.ask-vote .zone-vote {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+#list-vouchers > .voucher.ask-vote .vote:not(.has-voted) .thanks,
+#list-vouchers > .voucher.ask-vote .vote.has-voted .zone-vote {
+  display: none;
+}
+
+#list-vouchers > .voucher.ask-vote .zone-vote .vote-yes,
+#list-vouchers > .voucher.ask-vote .zone-vote .vote-no {
+  margin: 0 8px;
+  font-size: 24px;
+  cursor: pointer;
+  animation-duration: 0.2s;
+  animation-direction: alternate;
+  animation-iteration-count: 2;
+}
+
+#list-vouchers > .voucher.ask-vote .zone-vote .vote-yes:hover {
+  animation-name: upAndDown;
+}
+
+#list-vouchers > .voucher.ask-vote .zone-vote .vote-no:hover {
+  animation-name: downAndUp;
+}
+
+#list-vouchers > .voucher.ask-vote .vote.has-voted .thanks {
+  position: relative;
+  top: 0;
+  display: block;
+  text-align: center;
+  transition: all ease 0.8s;
+  opacity: 1;
+}
+
+#list-vouchers > .voucher.ask-vote .vote.has-voted.animate .thanks {
+  top: -80px;
+  opacity: 0;
+}
+
+#list-vouchers .warning-no-config {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 300px;
+  margin: 20px auto 0;
+}
+
+#list-vouchers .warning-no-config img {
+  width: 105px;
+  margin-right: 10px;
+}
+
+#list-vouchers .warning-no-config p {
+  text-align: center;
+  font-size: 12px;
+}
+
+#list-vouchers .ask-for-feedback {
+  display: block;
+  width: 300px;
+  margin: 0 auto;
+  color: #ffaca8;
+  text-decoration: underline;
+  font-size: 12px;
+  text-align: center;
+}
+
+@keyframes upAndDown {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes downAndUp {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(5px);
+  }
+}
