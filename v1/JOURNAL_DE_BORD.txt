@@ -1,0 +1,147 @@
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+INFO DU COMPTE TEST : - pseudo :StevenT
+		      - mot de passe : mot_de_passe
+
+INFO COMPTE ADMIN : - pseudo : responsable
+		    - mot de passe : resp22_ZUIQ
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+15/09/2022
+
+
+diagramme UML de classe : classe, attributs, associations, multiplicité
+
+schéma relationnel : tables, colonnes, liens
+
+
+TYPE : 
+INT pour les id + AUTO_INCREMENT
+VARCHAR(80) noms/prénoms 
+VARCHAR(200) chemin fichier images
+VARCHAR(500) news			VARCHAR = on prévoit au maximum 500 caractères. 
+CHAR(1) etat                            CHAR = quand on sait que la donnée aura toujours la même taille
+CHAR(8) code du match 
+CHAR(64) mot de passe
+   -SHA256
+VARCHAR(20) pseudo CHANGER ENCODAGE UTF8-Binary = MAJUSCULES =/= minuscules
+DATETIME date début fin des matchs
+
+NOT NULL/NULL
+ Mettre UNIQUE sur les FK utilisateur/profil
+
+
+
+12/07/2022
+
+Hashage d'un mot de passe en particulier
+
+15/07/2022
+
+Ajout du jeu de données professionnel
+
+17/10/2022
+
+Ajout d'une page "hashage" qui hash tous les mots de passe de la base via une boucle
+Televerser une image via le site dans la base de données 
+
+26/10/2022
+
+Creation de triggers/procédures/fonction :
+
+DELIMITER //
+CREATE PROCEDURE insert_actualite(ID_MAT INT)
+BEGIN
+SET @intitule_match = (SELECT qui_nom from T_QUIZ_qui 
+JOIN T_MATCH_mat using(qui_id)
+where mat_id=ID_MAT);
+SET @date_debut_match = (SELECT mat_date_debut from T_MATCH_mat where mat_id =ID_MAT);
+SET @date_fin_match = (SELECT mat_date_fin from T_MATCH_mat where mat_id =ID_MAT);
+IF @date_fin_match IS NOT null THEN
+INSERT INTO T_NEWS_new VALUES("Nouveau match !",CONCAT('Intitulé du match :',@intitule_match,'; Début du match :', @date_debut_match,' Fin du match :',@date_fin_match),CURRENT_DATE(),null,1);
+END IF;
+END;
+//
+DELIMITER ;
+
+
+
+DELIMITER //
+CREATE TRIGGER trigger_insert_news
+AFTER UPDATE ON T_MATCH_mat
+FOR EACH ROW
+BEGIN
+IF NEW.mat_date_fin is not null THEN
+	CALL insert_actualite(NEW.mat_id);
+END IF;
+END;
+//
+DELIMITER ;
+
+
+
+09/11/2022
+
+CodeIgniter 
+	
+
+14/11/2022
+Correction de toutes les fonctions/procédures/triggers de la BDD
+Export sur GitLab
+
+	
+	
+15/11/2022
+Changement de template
++ adaptation de template à ma sauce
+
+
+
+16/11/2022
+#1 Affichage des actualités : 	"aucune actu à la place du tableau si il n'y a pas d'actu"
+				date + titre + texte + auteur 
+
+#2 	-Affichage des données d'un match dont le code est passé en paramètre de l'url
+	-Traiter la requête => cf FAQ 10)
+Wiki => URL de la V1 ajouté à mon espace dédié
+
+
+
+17-18/11/2022
+Ajout d'un espace pour rentrer le code d'un match 
+ajout d'un espace pour rentrer un pseudo après vérification de l'existence du match
+
+19/11/2022 
+ENORMEMENT DE CSS : formulaire de recherche de match, page de création de joueur
+
+20/11/2022
+Ajout de commentaire et d'en tête dans tous les fichiers !!!
+
+21/11/2022
+implémentation : il ne peut pas y avoir un deux joueurs avec le même pseudo dans le même match
+
+25-26/11/2022 : Gestion des sessions administrateur et formateur
+		- nouveau menu;
+		- modification mot de passe user
+		- création de match pour les formateurs
+		- lancement d'un match pour le formateur
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  	
